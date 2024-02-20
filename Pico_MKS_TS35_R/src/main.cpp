@@ -4,7 +4,7 @@
 #include <lvgl.h>  // Hardware-specific library
 
 typedef struct {
-    TFT_eSPI * tft;
+    TFT_eSPI *tft;
 } lv_tft_espi_t;
 
 #define SCREEN_ROTATION 7
@@ -15,25 +15,25 @@ uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 TFT_eSPI *tft;  // Invoke custom library
 
 #if LV_USE_LOG != 0
-void my_print( lv_log_level_t level, const char * buf )
-{
+
+void my_print(lv_log_level_t level, const char *buf) {
     LV_UNUSED(level);
     Serial.println(buf);
     Serial.flush();
 }
+
 #endif
 
-static void event_handler(lv_event_t * e)
-{
+static void event_handler(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
 
-    if(code == LV_EVENT_CLICKED) {
+    if (code == LV_EVENT_CLICKED) {
         LV_LOG_USER("Clicked");
-    }
-    else if(code == LV_EVENT_VALUE_CHANGED) {
+    } else if (code == LV_EVENT_VALUE_CHANGED) {
         LV_LOG_USER("Toggled");
     }
 }
+
 void initBeep();
 
 void beep() {
@@ -42,11 +42,10 @@ void beep() {
     digitalWrite(PIN_BEEPER, LOW);
 }
 
-void lv_example_button_1(void)
-{
-    lv_obj_t * label;
+void lv_example_button_1(void) {
+    lv_obj_t *label;
 
-    lv_obj_t * btn1 = lv_button_create(lv_screen_active());
+    lv_obj_t *btn1 = lv_button_create(lv_screen_active());
     lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);
     lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
     lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
@@ -55,7 +54,7 @@ void lv_example_button_1(void)
     lv_label_set_text(label, "Button");
     lv_obj_center(label);
 
-    lv_obj_t * btn2 = lv_button_create(lv_screen_active());
+    lv_obj_t *btn2 = lv_button_create(lv_screen_active());
     lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);
     lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
     lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
@@ -68,24 +67,24 @@ void lv_example_button_1(void)
 }
 
 
-void blinkLED(bool fast=false) {
+void blinkLED(bool fast = false) {
     digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-    delay(fast?50:1000);                       // wait for a second
+    delay(fast ? 50 : 1000);                       // wait for a second
     digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-    delay(fast?50:1000);
+    delay(fast ? 50 : 1000);
     Serial.println("Blinky");
 }
 
-void my_touchpad_read( lv_indev_t * indev, lv_indev_data_t * data ) {
+void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
     uint16_t x, y;
-    bool touched = tft->getTouch( &x, &y, 600 );
+    bool touched = tft->getTouch(&x, &y, 600);
 
     if (!touched) {
         data->state = LV_INDEV_STATE_RELEASED;
     } else {
         beep();
         data->state = LV_INDEV_STATE_PRESSED;
-#if (SCREEN_ROTATION == 1) || (SCREEN_ROTATION == 3)|| (SCREEN_ROTATION == 5) || (SCREEN_ROTATION == 7)
+#if (SCREEN_ROTATION == 1) || (SCREEN_ROTATION == 3) || (SCREEN_ROTATION == 5) || (SCREEN_ROTATION == 7)
         data->point.x = y;
         data->point.y = x;
 #else
@@ -95,8 +94,7 @@ void my_touchpad_read( lv_indev_t * indev, lv_indev_data_t * data ) {
     }
 }
 
-void touch_calibrate()
-{
+void touch_calibrate() {
     uint16_t calData[5];
     uint8_t calDataOK = 0;
 
@@ -114,20 +112,21 @@ void touch_calibrate()
 
     tft->calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
 
-    Serial.println(); Serial.println();
+    Serial.println();
+    Serial.println();
     Serial.println("// Use this calibration code in setup():");
     Serial.print("  uint16_t calData[5] = ");
     Serial.print("{ ");
 
-    for (uint8_t i = 0; i < 5; i++)
-    {
+    for (uint8_t i = 0; i < 5; i++) {
         Serial.print(calData[i]);
         if (i < 4) Serial.print(", ");
     }
 
     Serial.println(" };");
     Serial.print("  tft->setTouch(calData);");
-    Serial.println(); Serial.println();
+    Serial.println();
+    Serial.println();
 
     tft->fillScreen(TFT_BLACK);
 
@@ -140,29 +139,88 @@ void touch_calibrate()
 
 UART SerialFluidNC(FLUIDNC_TX_PIN, FLUIDNC_RX_PIN);
 
+void show_limits(bool probe, const bool *limits, size_t n_axis) {
+    Serial.println("Limits");
+}
+
+void show_state(const char *state) {
+    Serial.println(state);
+}
+
+void show_dro(const pos_t *axes, const pos_t *wcos, bool isMpos, bool *limits, size_t n_axis) {
+
+    Serial.print("Axes: ");
+    for (size_t i = 0; i < n_axis; ++i) {
+        Serial.print(axes[i]);
+        Serial.print(";");
+    }
+    Serial.print(" Wcos: ");
+    for (size_t i = 0; i < n_axis; ++i) {
+        Serial.print(wcos[i]);
+        Serial.print(";");
+    }
+    Serial.println();
+}
+
+void show_alarm(int alarm) {
+    Serial.print("Alarm: ");
+    Serial.println(alarm);
+}
+
+void show_error(int error) {
+    Serial.print("Error: ");
+    Serial.println(error);
+}
+
+void show_ok() {
+    Serial.println("Ok");
+}
+
+void show_timeout() {
+    Serial.println("Timeout!");
+}
+
+void fnc_putchar(uint8_t c) {
+    SerialFluidNC.write(c);
+}
+
+int fnc_getchar() {
+    if (SerialFluidNC.available()) {
+        return SerialFluidNC.read();
+    }
+    return -1;
+}
+
+int milliseconds() {
+    return millis();
+}
+
 void setup(void) {
     Serial.begin(9600);
     SerialFluidNC.begin(115200, SERIAL_8N1);
+    fnc_wait_ready();
+    fnc_putchar('?');           // Initial status report
+    fnc_send_line("$G", 1000);  // Initial modes report
 
     initBeep();
 
     lv_init();
 
 #if LV_USE_LOG != 0
-    lv_log_register_print_cb( my_print );
+    lv_log_register_print_cb(my_print);
 #endif
-    lv_display_t * disp;
+    lv_display_t *disp;
     /*TFT_eSPI can be enabled lv_conf.h to initialize the display in a simple way*/
     disp = lv_tft_espi_create(TFT_WIDTH, TFT_HEIGHT, draw_buf, sizeof(draw_buf));
-    const auto driver_data=(lv_tft_espi_t*)lv_display_get_driver_data(disp);
+    const auto driver_data = (lv_tft_espi_t *) lv_display_get_driver_data(disp);
     tft = driver_data->tft;
     tft->setRotation(SCREEN_ROTATION);
     //touch_calibrate();
-    uint16_t calData[5] = { 590, 3253, 620, 2938, 6 };
+    uint16_t calData[5] = {590, 3253, 620, 2938, 6};
     tft->setTouch(calData);
 
     /*Initialize the (dummy) input device driver*/
-    lv_indev_t * indev = lv_indev_create();
+    lv_indev_t *indev = lv_indev_create();
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
 
@@ -187,7 +245,7 @@ void setup(void) {
 
     lv_example_button_1();
 
-    Serial.println( "Setup done" );
+    Serial.println("Setup done");
 }
 
 void initBeep() {
@@ -197,13 +255,23 @@ void initBeep() {
 
 void loop() {
     lv_task_handler(); /* let the GUI do its work */
-    lv_tick_inc(5); /* tell LVGL how much time has passed */
-    delay(5); /* let this time pass */
-   // delay(5000);
 
+    long start = millis();
+    while (SerialFluidNC.available()) {
+        fnc_poll();
+    }
+    long end = millis();
 
+    if (end - start == 0) {
+        delay(1);
+        lv_tick_inc(1);
+    } else {
+        lv_tick_inc(end - start); /* tell LVGL how much time has passed */
+    }
+
+    // Serial.println("loop");
 //    // Binary inversion of colours
-//    tft.invertDisplay( true ); // Where i is true or false
+    //tft->invertDisplay( true ); // Where i is true or false
 //
 //    tft.fillScreen(TFT_BLACK);
 //    tft.drawRect(0, 0, tft.width(), tft.height(), TFT_GREEN);
@@ -224,5 +292,6 @@ void loop() {
 //    tft.setTextColor(TFT_BLUE);
 //    tft.println(" Blue text");
 
-  //  blinkLED();
+    //  blinkLED();
+
 }
