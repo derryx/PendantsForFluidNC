@@ -165,8 +165,8 @@ extern "C" void show_gcode_modes(struct gcode_modes *modes) {
     redraw();
 }
 
-int disconnect_ms = 0;
-int next_ping_ms = 0;
+static int disconnect_ms = 0;
+static int next_ping_ms = 0;
 
 // If we haven't heard from FluidNC in 4 seconds for some other reason,
 // send a status report request.
@@ -176,7 +176,7 @@ const int ping_interval_ms = 4000;
 // FluidNC unresponsive.  After a ping, FluidNC has 2 seconds to respond.
 const int disconnect_interval_ms = 6000;
 
-bool starting = true;
+static bool starting = true;
 
 void request_status_report() {
     fnc_realtime(StatusReport);  // Request fresh status

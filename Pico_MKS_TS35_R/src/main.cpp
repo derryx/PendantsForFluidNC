@@ -2,6 +2,7 @@
 #include "FluidNCModel.h"
 #include <TFT_eSPI.h>
 #include <lvgl.h>  // Hardware-specific library
+#include <UI.h>
 
 typedef struct {
     TFT_eSPI *tft;
@@ -63,23 +64,6 @@ void lv_example_button_1(void) {
     label = lv_label_create(btn2);
     lv_label_set_text(label, "Toggle");
     lv_obj_center(label);
-
-}
-
-lv_obj_t *status_label;
-lv_style_t status_style;
-
-void build_ui() {
-    lv_style_init(&status_style);
-    lv_style_set_radius(&status_style, 5);
-    lv_style_set_border_width(&status_style, 2);
-    lv_style_set_pad_all(&status_style, 10);
-    lv_style_set_text_font(&status_style, &lv_font_montserrat_20);
-
-    status_label = lv_label_create(lv_screen_active());
-    lv_obj_align(status_label, LV_ALIGN_TOP_MID, 0, 0);
-    lv_obj_add_style(status_label, &status_style, 0);
-    lv_label_set_text(status_label, "Unknown");
 
 }
 
@@ -162,6 +146,7 @@ void fnc_putchar(uint8_t c) {
 
 int fnc_getchar() {
     if (SerialFluidNC.available()) {
+        update_rx_time();
         return SerialFluidNC.read();
     }
     return -1;
@@ -221,7 +206,7 @@ void setup(void) {
 
     //lv_example_button_1();
 
-    build_ui();
+    init_ui();
 
     Serial.println("Setup done");
 }
@@ -245,6 +230,13 @@ void loop() {
         lv_tick_inc(1);
     } else {
         lv_tick_inc(end - start); /* tell LVGL how much time has passed */
+    }
+
+    if (!fnc_is_connected()) {
+        if (state != Disconnected) {
+            set_disconnected_state();
+            redraw();
+        }
     }
 
     // Serial.println("loop");
