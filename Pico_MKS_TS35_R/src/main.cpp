@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "GrblParserC.h"
+#include "FluidNCModel.h"
 #include <TFT_eSPI.h>
 #include <lvgl.h>  // Hardware-specific library
 
@@ -46,7 +46,7 @@ void lv_example_button_1(void) {
     lv_obj_t *label;
 
     lv_obj_t *btn1 = lv_button_create(lv_screen_active());
-    lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, nullptr);
     lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
     lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
 
@@ -55,7 +55,7 @@ void lv_example_button_1(void) {
     lv_obj_center(label);
 
     lv_obj_t *btn2 = lv_button_create(lv_screen_active());
-    lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, nullptr);
     lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
     lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
     lv_obj_set_height(btn2, LV_SIZE_CONTENT);
@@ -63,6 +63,23 @@ void lv_example_button_1(void) {
     label = lv_label_create(btn2);
     lv_label_set_text(label, "Toggle");
     lv_obj_center(label);
+
+}
+
+lv_obj_t *status_label;
+lv_style_t status_style;
+
+void build_ui() {
+    lv_style_init(&status_style);
+    lv_style_set_radius(&status_style, 5);
+    lv_style_set_border_width(&status_style, 2);
+    lv_style_set_pad_all(&status_style, 10);
+    lv_style_set_text_font(&status_style, &lv_font_montserrat_20);
+
+    status_label = lv_label_create(lv_screen_active());
+    lv_obj_align(status_label, LV_ALIGN_TOP_MID, 0, 0);
+    lv_obj_add_style(status_label, &status_style, 0);
+    lv_label_set_text(status_label, "Unknown");
 
 }
 
@@ -139,47 +156,6 @@ void touch_calibrate() {
 
 UART SerialFluidNC(FLUIDNC_TX_PIN, FLUIDNC_RX_PIN);
 
-void show_limits(bool probe, const bool *limits, size_t n_axis) {
-    Serial.println("Limits");
-}
-
-void show_state(const char *state) {
-    Serial.println(state);
-}
-
-void show_dro(const pos_t *axes, const pos_t *wcos, bool isMpos, bool *limits, size_t n_axis) {
-
-    Serial.print("Axes: ");
-    for (size_t i = 0; i < n_axis; ++i) {
-        Serial.print(axes[i]);
-        Serial.print(";");
-    }
-    Serial.print(" Wcos: ");
-    for (size_t i = 0; i < n_axis; ++i) {
-        Serial.print(wcos[i]);
-        Serial.print(";");
-    }
-    Serial.println();
-}
-
-void show_alarm(int alarm) {
-    Serial.print("Alarm: ");
-    Serial.println(alarm);
-}
-
-void show_error(int error) {
-    Serial.print("Error: ");
-    Serial.println(error);
-}
-
-void show_ok() {
-    Serial.println("Ok");
-}
-
-void show_timeout() {
-    Serial.println("Timeout!");
-}
-
 void fnc_putchar(uint8_t c) {
     SerialFluidNC.write(c);
 }
@@ -199,8 +175,8 @@ void setup(void) {
     Serial.begin(9600);
     SerialFluidNC.begin(115200, SERIAL_8N1);
     fnc_wait_ready();
-    fnc_putchar('?');           // Initial status report
     fnc_send_line("$G", 1000);  // Initial modes report
+    fnc_send_line("$I", 1000);
 
     initBeep();
 
@@ -243,7 +219,9 @@ void setup(void) {
      lv_demo_widgets();
      */
 
-    lv_example_button_1();
+    //lv_example_button_1();
+
+    build_ui();
 
     Serial.println("Setup done");
 }
