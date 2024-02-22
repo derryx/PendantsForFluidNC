@@ -122,6 +122,10 @@ String floatToString(float val, int afterDecimal) {
     return str;
 }
 
+String axisToString(int axis) {
+    return axisNumToString(axis) + " " + floatToString(myAxes[axis], 2);
+}
+
 String modeString() {
     return myModeString;
 }
