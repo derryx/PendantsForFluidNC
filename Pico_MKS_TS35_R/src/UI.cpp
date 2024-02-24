@@ -84,10 +84,46 @@ void init_base() {
     lv_obj_add_style(base_obj, &base_style, LV_PART_MAIN);
 }
 
+lv_style_t jogging_style;
+
+static int32_t col_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
+static int32_t row_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
+
+void init_jogging_ui() {
+    lv_style_init(&jogging_style);
+    lv_style_set_align(&jogging_style, LV_ALIGN_RIGHT_MID);
+
+    auto jogging_grid = lv_obj_create(base_obj);
+    lv_obj_set_style_grid_column_dsc_array(jogging_grid, col_dsc, 0);
+    lv_obj_set_style_grid_row_dsc_array(jogging_grid, row_dsc, 0);
+    lv_obj_center(jogging_grid);
+    lv_obj_set_layout(jogging_grid, LV_LAYOUT_GRID);
+    lv_obj_add_style(jogging_grid, &jogging_style, 0);
+    lv_obj_t *label;
+    lv_obj_t *obj;
+
+    uint32_t i;
+    for (i = 0; i < 9; i++) {
+        uint8_t col = i % 3;
+        uint8_t row = i / 3;
+
+        obj = lv_button_create(jogging_grid);
+        /*Stretch the cell horizontally and vertically too
+         *Set span to 1 to make the cell 1 column/row sized*/
+        lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, col, 1,
+                             LV_GRID_ALIGN_STRETCH, row, 1);
+
+        label = lv_label_create(obj);
+        lv_label_set_text_fmt(label, "c%d, r%d", col, row);
+        lv_obj_center(label);
+    }
+}
+
 void init_ui() {
     init_base();
     init_state_ui();
     init_axis_ui();
+    init_jogging_ui();
 }
 
 void redraw_state() {

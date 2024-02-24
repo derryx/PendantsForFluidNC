@@ -116,7 +116,7 @@ String axisNumToString(int axis) {
 
 String floatToString(float val, int afterDecimal) {
     char buffer[20];
-    snprintf(buffer, 20, "%16.*f", afterDecimal, val);
+    snprintf(buffer, 20, "%+12.*f", afterDecimal, val);
     // dtostrf(val, 1, afterDecimal, buffer);
     String str(buffer);
     return str;
