@@ -161,11 +161,62 @@ void init_jogging_ui() {
     create_jogging_button(LV_SYMBOL_DOWN, 2, 1);
 }
 
+lv_obj_t *action_matrix;
+static const char *btnm_map[] = {LV_SYMBOL_STOP, LV_SYMBOL_PLAY, LV_SYMBOL_PAUSE, NULL
+};
+
+void action_button_cb(lv_event_t *e) {
+    auto *obj = static_cast<lv_obj_t *>(lv_event_get_target(e));
+    auto id = lv_buttonmatrix_get_selected_button(obj);
+    Serial.print("Action Button: ");
+    Serial.println(id);
+}
+
+void update_matrix_button_state() {
+    switch (state) {
+        case Hold:
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, 1, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, 2,
+                                            LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+            break;
+        case Jog:
+        case Homing:
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, 1,
+                                            LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, 2,
+                                            LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+            break;
+        case Cycle:
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, 1,
+                                            LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, 2, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            break;
+        default:
+            lv_buttonmatrix_set_button_ctrl_all(action_matrix,
+                                                LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+    }
+}
+
+void init_action_buttons_ui() {
+    action_matrix = lv_buttonmatrix_create(base_obj);
+    lv_obj_set_width(action_matrix, LV_PCT(100));
+    lv_obj_set_height(action_matrix, LV_PCT(25));
+    lv_obj_align(action_matrix, LV_ALIGN_BOTTOM_MID, 0, 0);
+    lv_buttonmatrix_set_map(action_matrix, btnm_map);
+    lv_buttonmatrix_set_button_ctrl_all(action_matrix, LV_BUTTONMATRIX_CTRL_DISABLED | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+    update_matrix_button_state();
+    lv_obj_add_event_cb(action_matrix, action_button_cb, LV_EVENT_VALUE_CHANGED, NULL);
+}
+
 void init_ui() {
     init_base();
     init_state_ui();
     init_axis_ui();
     init_jogging_ui();
+    init_action_buttons_ui();
 }
 
 void redraw_state() {
@@ -174,6 +225,7 @@ void redraw_state() {
     lv_style_set_bg_color(&status_style, stateColors[state]);
     lv_obj_refresh_style(status_label, LV_PART_ANY, LV_STYLE_PROP_ANY);
     lv_label_set_text(status_label, stateString.c_str());
+    update_matrix_button_state();
 }
 
 void redraw_axes() {
@@ -186,4 +238,5 @@ void redraw_axes() {
 void redraw() {
     redraw_state();
     redraw_axes();
+    update_matrix_button_state();
 }
