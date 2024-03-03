@@ -133,6 +133,10 @@ void jogging_button_cb(lv_event_t *e) {
             break;
         case JOG_HOME:
             Serial.println("HOME");
+            if (state == Idle || state == Alarm) {
+                String line = "$H";
+                send_line(line);
+            }
             break;
         case JOG_RIGHT:
             Serial.println("RIGHT");
@@ -201,12 +205,23 @@ void action_button_cb(lv_event_t *e) {
     switch (id) {
         case ACT_STOP:
             Serial.println("ACT_STOP");
+            if (state == Jog) {
+                fnc_realtime(JogCancel);
+            } else {
+                fnc_realtime(Reset);
+            }
             break;
         case ACT_PLAY:
             Serial.println("PLAY");
+            if (state == Hold) {
+                fnc_realtime(CycleStart);
+            }
             break;
         case ACT_PAUSE:
             Serial.println("PAUSE");
+            if (state == Cycle) {
+                fnc_realtime(FeedHold);
+            }
             break;
         default:
             Serial.println("UNKOWN");
@@ -216,24 +231,24 @@ void action_button_cb(lv_event_t *e) {
 void update_matrix_button_state() {
     switch (state) {
         case Hold:
-            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
-            lv_buttonmatrix_clear_button_ctrl(action_matrix, 1, LV_BUTTONMATRIX_CTRL_HIDDEN);
-            lv_buttonmatrix_set_button_ctrl(action_matrix, 2,
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_STOP, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_PLAY, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PAUSE,
                                             LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
             break;
         case Jog:
         case Homing:
-            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
-            lv_buttonmatrix_set_button_ctrl(action_matrix, 1,
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_STOP, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PLAY,
                                             LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
-            lv_buttonmatrix_set_button_ctrl(action_matrix, 2,
+            lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PAUSE,
                                             LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
             break;
         case Cycle:
-            lv_buttonmatrix_clear_button_ctrl(action_matrix, 0, LV_BUTTONMATRIX_CTRL_HIDDEN);
-            lv_buttonmatrix_set_button_ctrl(action_matrix, 1,
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_STOP, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PLAY,
                                             LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
-            lv_buttonmatrix_clear_button_ctrl(action_matrix, 2, LV_BUTTONMATRIX_CTRL_HIDDEN);
+            lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_PAUSE, LV_BUTTONMATRIX_CTRL_HIDDEN);
             break;
         default:
             lv_buttonmatrix_set_button_ctrl_all(action_matrix,
