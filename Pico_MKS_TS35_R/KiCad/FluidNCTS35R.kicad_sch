@@ -206,6 +206,108 @@
 				)
 			)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector_Generic:Conn_02x05_Odd_Even"
 			(pin_names
 				(offset 1.016) hide)
@@ -2281,6 +2383,42 @@
 		)
 	)
 	(junction
+		(at 168.91 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "07ca9a36-e70c-499d-b887-98bc1144a2ae")
+	)
+	(junction
+		(at 142.24 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0e963ac8-e97b-4bea-8e47-bb9837f5810e")
+	)
+	(junction
+		(at 142.24 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "571d630f-6aeb-4422-990f-5110bcbe9597")
+	)
+	(junction
+		(at 168.91 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a3893713-2e15-4d37-8edf-7740cd485c1b")
+	)
+	(junction
+		(at 111.76 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cbbde947-ae0e-41d3-850b-2e7b01dad543")
+	)
+	(junction
+		(at 111.76 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fbb7a916-ac5e-4137-a3b5-4ed51ce6165e")
+	)
+	(junction
 		(at 90.17 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2432,16 +2570,6 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 48.26) (xy 52.07 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3fcb2798-e527-448c-9f53-8518097ca4c4")
-	)
-	(wire
-		(pts
 			(xy 87.63 48.26) (xy 90.17 48.26)
 		)
 		(stroke
@@ -2449,16 +2577,6 @@
 			(type default)
 		)
 		(uuid "412731b3-e8e3-4446-b40c-4b544935e810")
-	)
-	(wire
-		(pts
-			(xy 33.02 45.72) (xy 52.07 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b04364d1-60e1-42e4-b824-79ff2d00eba8")
 	)
 	(wire
 		(pts
@@ -2537,6 +2655,50 @@
 		(uuid "1d9ab5c6-c4d3-4258-842b-8c3cf288ff37")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 45.3353 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX"
+		(shape input)
+		(at 33.02 45.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1fb69864-2510-4419-9eec-fefd621cd2f8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 38.4847 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX"
+		(shape input)
+		(at 52.07 48.26 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "26e282f8-f318-4d1c-b7c2-a40c18f4dd8f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 46.6053 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2788,6 +2950,138 @@
 			)
 		)
 	)
+	(global_label "TX"
+		(shape output)
+		(at 52.07 45.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "53b86bc2-95b1-44db-afdb-db01bef2eafd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 46.9077 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "MOSI"
+		(shape output)
+		(at 36.83 139.7 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "545862bc-82a2-4c92-9000-0f916f6e4587")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 29.2486 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "MISO"
+		(shape output)
+		(at 36.83 179.07 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "561e6ceb-c617-4030-96c2-46f00584a87a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 29.2486 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LCD_RESET"
+		(shape output)
+		(at 36.83 170.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "594d7c1f-8670-42ba-b3dd-e572e00879f1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 23.564 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "TX"
+		(shape output)
+		(at 33.02 50.8 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5ae26c82-7953-43f6-afdf-9ba14289d98f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 38.1823 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "TOUCH_CS"
+		(shape output)
+		(at 36.83 156.21 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "694a5894-2849-4411-a03f-5b1c507181fb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 24.1686 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "LCD_CS"
 		(shape output)
 		(at 52.07 73.66 180)
@@ -2810,6 +3104,28 @@
 			)
 		)
 	)
+	(global_label "SCK"
+		(shape output)
+		(at 36.83 144.78 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7200931e-67d3-4101-aa52-d2aa8e5e4218")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 30.0953 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "UART_RX"
 		(shape input)
 		(at 52.07 60.96 180)
@@ -2823,6 +3139,50 @@
 		(uuid "77001b50-4453-4e06-a878-0e70a80b9c18")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 40.981 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RESET"
+		(shape output)
+		(at 36.83 137.16 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "78b04713-3240-4132-a90d-e84299e1dcc3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 28.0997 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LCD_CS"
+		(shape output)
+		(at 36.83 158.75 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7b1d649b-7bc3-4c49-b3b8-24392fd064d8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 26.8296 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3008,6 +3368,50 @@
 			)
 		)
 	)
+	(global_label "BEEPER"
+		(shape output)
+		(at 36.83 151.13 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9bb10722-6b68-4066-bd10-77169308c258")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 26.5878 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LCD_BACKLIGHT"
+		(shape output)
+		(at 36.83 153.67 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9c35fc0f-7e65-4d38-b59c-53d64183d9f4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 19.2095 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "RESET"
 		(shape input)
 		(at 87.63 71.12 0)
@@ -3048,6 +3452,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LCD_RS"
+		(shape output)
+		(at 36.83 165.1 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c309f3d8-aa58-46bc-93c0-75d3150050ca")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 26.8296 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -3392,6 +3818,207 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 153.67 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "03df9b82-eddf-415c-9dc7-a6f2fd70b34d")
+		(property "Reference" "TP7"
+			(at 41.91 152.3999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 154.9399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50477da9-db85-4b7b-82a9-aed57f44e710")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 142.24 102.87 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "06109f3b-87ea-48c6-8965-227efee22a98")
+		(property "Reference" "TP13"
+			(at 147.32 101.5999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 147.32 104.1399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 142.24 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 142.24 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0848ff98-f1c4-43d4-9a9f-12b5f88fb481")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 144.78 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "06c8acbc-fea3-416b-8219-9719996b60a0")
+		(property "Reference" "TP3"
+			(at 41.91 143.5099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 146.0499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "976da2b0-5abb-42f4-b36b-9d3717dbd450")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 154.94 129.54 90)
 		(unit 1)
@@ -3459,6 +4086,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 165.1 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "10dde13c-ef0c-42af-8306-abc75fcc2920")
+		(property "Reference" "TP4"
+			(at 41.91 163.8299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 166.3699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ab4c0c06-30a4-474a-8e5b-8c367345d7a5")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 69.85 110.49 180)
 		(unit 1)
@@ -3519,6 +4213,73 @@
 			(project "FluidNCTS35R"
 				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
 					(reference "#PWR019")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 158.75 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1ac511f3-3ac0-4a00-85e1-8278934d06aa")
+		(property "Reference" "TP9"
+			(at 41.91 157.4799 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 160.0199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "683ae51e-cacb-4538-9270-c5c17233be13")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP9")
 					(unit 1)
 				)
 			)
@@ -3725,6 +4486,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 111.76 102.87 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "29df40af-f4cf-43d4-85f3-003e0ae26ec8")
+		(property "Reference" "TP12"
+			(at 116.84 101.5999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 116.84 104.1399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 111.76 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 111.76 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3d8e869a-bb0a-4b5c-b4ee-6209183db776")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "GND_1")
 		(lib_id "power:GND")
 		(at 111.76 110.49 0)
@@ -3786,6 +4614,140 @@
 			(project "FluidNCTS35R"
 				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
 					(reference "#PWR021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 168.91 102.87 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2a17c11e-8ce2-46b4-b4ba-ecdf49bd46f0")
+		(property "Reference" "TP14"
+			(at 173.99 101.5999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 173.99 104.1399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 168.91 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 168.91 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 168.91 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1fe282ad-83ac-42ea-8bf7-8784a5321be7")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 139.7 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "348fa556-b338-42a2-8e8b-a961c67c4605")
+		(property "Reference" "TP2"
+			(at 41.91 138.4299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 140.9699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "52f17f40-f574-4c88-ba7d-efc4879a280b")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -4571,6 +5533,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 170.18 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6c7f450b-e598-4f57-ae51-c376079ff947")
+		(property "Reference" "TP5"
+			(at 41.91 168.9099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 171.4499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e61f6414-c8ff-4eec-9bbb-25f6d5270739")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:VDD")
 		(at 142.24 102.87 0)
 		(unit 1)
@@ -4765,6 +5794,73 @@
 			(project "FluidNCTS35R"
 				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 142.24 110.49 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "754b21e2-963a-47a3-82d9-83bc647681e3")
+		(property "Reference" "TP15"
+			(at 147.32 109.2199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 147.32 111.7599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 142.24 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 142.24 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0d625ba7-fcd7-4f95-ab62-0acec1c98213")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP15")
 					(unit 1)
 				)
 			)
@@ -4975,6 +6071,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 168.91 110.49 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7fdbf548-6540-47b8-ab38-c894cfff332f")
+		(property "Reference" "TP16"
+			(at 173.99 109.2199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 173.99 111.7599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 168.91 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 168.91 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 168.91 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "faa20bb2-e1a3-429a-845c-af85f74b78bd")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "GND_1")
 		(lib_id "power:GND")
 		(at 168.91 110.49 0)
@@ -5135,7 +6298,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 33.02 50.8 90)
+		(at 33.02 48.26 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5144,7 +6307,7 @@
 		(fields_autoplaced yes)
 		(uuid "9b6bd7cc-01fb-4ac7-a299-f5accf1dac4e")
 		(property "Reference" "#PWR020"
-			(at 39.37 50.8 0)
+			(at 39.37 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5153,7 +6316,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 36.83 50.8 90)
+			(at 36.83 48.26 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5162,7 +6325,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 33.02 50.8 0)
+			(at 33.02 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5171,7 +6334,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 33.02 50.8 0)
+			(at 33.02 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5180,7 +6343,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 33.02 50.8 0)
+			(at 33.02 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5267,6 +6430,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 137.16 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9e850193-1a6b-44d2-befb-caa308804f05")
+		(property "Reference" "TP1"
+			(at 41.91 135.8899 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 138.4299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c7351acc-9695-4f18-a36f-b006e42725f6")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 101.6 48.26 270)
 		(unit 1)
@@ -5328,6 +6558,140 @@
 			(project "FluidNCTS35R"
 				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 179.07 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9f5c5c46-70ac-4f28-8c25-fbbebc0f602e")
+		(property "Reference" "TP10"
+			(at 41.91 177.7999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 180.3399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ee56f4bd-8956-4f1f-9bc6-e42044c816a5")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 151.13 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a2eea9fd-db27-46eb-a33d-7efb0e971747")
+		(property "Reference" "TP6"
+			(at 41.91 149.8599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 152.3999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a944f923-b86e-4b8d-a20b-b15646f01145")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -5739,6 +7103,140 @@
 			(project "FluidNCTS35R"
 				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
 					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 36.83 156.21 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d1ff8551-8dc7-4ab9-84af-3fc077c61283")
+		(property "Reference" "TP8"
+			(at 41.91 154.9399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 41.91 157.4799 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 36.83 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.83 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 36.83 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1c40dfd5-b83a-4f22-9f5d-9638c7ae6c29")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 111.76 110.49 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d2480ffd-7d1c-4fea-b1cb-4e75842a90d5")
+		(property "Reference" "TP11"
+			(at 116.84 109.2199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 116.84 111.7599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D2.0mm"
+			(at 111.76 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 111.76 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ff5bde7b-d88b-42c2-9049-784839a7cb07")
+		)
+		(instances
+			(project "FluidNCTS35R"
+				(path "/417a56c7-cb0f-4f77-b37d-25d612b94997"
+					(reference "TP11")
 					(unit 1)
 				)
 			)

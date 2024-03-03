@@ -110,21 +110,46 @@ lv_style_t jogging_style;
 lv_style_t jogging_button_style;
 lv_obj_t *jogging_grid;
 
+enum jogging_button_id {
+    JOG_UP,
+    JOG_LEFT,
+    JOG_HOME,
+    JOG_RIGHT,
+    JOG_DOWN
+};
+
 static int32_t col_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
 static int32_t row_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
 
 void jogging_button_cb(lv_event_t *e) {
-    auto *row_col_data = static_cast<std::pair<u_int8_t, u_int8_t> *>(e->user_data);
-    Serial.print(row_col_data->first);
-    Serial.print(", ");
-    Serial.println(row_col_data->second);
+    auto *id = static_cast<jogging_button_id *>(e->user_data);
+    Serial.print("Jogging: ");
+    switch (*id) {
+        case JOG_UP:
+            Serial.println("UP");
+            break;
+        case JOG_LEFT:
+            Serial.println("LEFT");
+            break;
+        case JOG_HOME:
+            Serial.println("HOME");
+            break;
+        case JOG_RIGHT:
+            Serial.println("RIGHT");
+            break;
+        case JOG_DOWN:
+            Serial.println("DOWN");
+            break;
+        default:
+            Serial.println("UNKOWN");
+    }
 }
 
-void create_jogging_button(const char *symbol, u_int8_t row, u_int8_t col) {
+void create_jogging_button(const char *symbol, u_int8_t row, u_int8_t col, jogging_button_id id) {
     lv_obj_t *obj = lv_button_create(jogging_grid);
     lv_obj_add_style(obj, &jogging_button_style, LV_PART_MAIN);
     static auto row_col_data = std::pair<u_int8_t, u_int8_t>(row, col);
-    lv_obj_add_event_cb(obj, &jogging_button_cb, LV_EVENT_CLICKED, &row_col_data);
+    lv_obj_add_event_cb(obj, &jogging_button_cb, LV_EVENT_CLICKED, &id);
     /*Stretch the cell horizontally and vertically too
      *Set span to 1 to make the cell 1 column/row sized*/
     lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, col, 1,
@@ -154,22 +179,38 @@ void init_jogging_ui() {
     lv_obj_add_style(jogging_grid, &jogging_style, 0);
 
     // up-button
-    create_jogging_button(LV_SYMBOL_UP, 0, 1);
-    create_jogging_button(LV_SYMBOL_LEFT, 1, 0);
-    create_jogging_button(LV_SYMBOL_HOME, 1, 1);
-    create_jogging_button(LV_SYMBOL_RIGHT, 1, 2);
-    create_jogging_button(LV_SYMBOL_DOWN, 2, 1);
+    create_jogging_button(LV_SYMBOL_UP, 0, 1, JOG_UP);
+    create_jogging_button(LV_SYMBOL_LEFT, 1, 0, JOG_LEFT);
+    create_jogging_button(LV_SYMBOL_HOME, 1, 1, JOG_HOME);
+    create_jogging_button(LV_SYMBOL_RIGHT, 1, 2, JOG_RIGHT);
+    create_jogging_button(LV_SYMBOL_DOWN, 2, 1, JOG_DOWN);
 }
 
 lv_obj_t *action_matrix;
 static const char *btnm_map[] = {LV_SYMBOL_STOP, LV_SYMBOL_PLAY, LV_SYMBOL_PAUSE, NULL
 };
 
+enum action_button_id {
+    ACT_STOP, ACT_PLAY, ACT_PAUSE
+};
+
 void action_button_cb(lv_event_t *e) {
     auto *obj = static_cast<lv_obj_t *>(lv_event_get_target(e));
     auto id = lv_buttonmatrix_get_selected_button(obj);
     Serial.print("Action Button: ");
-    Serial.println(id);
+    switch (id) {
+        case ACT_STOP:
+            Serial.println("ACT_STOP");
+            break;
+        case ACT_PLAY:
+            Serial.println("PLAY");
+            break;
+        case ACT_PAUSE:
+            Serial.println("PAUSE");
+            break;
+        default:
+            Serial.println("UNKOWN");
+    }
 }
 
 void update_matrix_button_state() {
@@ -208,7 +249,7 @@ void init_action_buttons_ui() {
     lv_buttonmatrix_set_map(action_matrix, btnm_map);
     lv_buttonmatrix_set_button_ctrl_all(action_matrix, LV_BUTTONMATRIX_CTRL_DISABLED | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
     update_matrix_button_state();
-    lv_obj_add_event_cb(action_matrix, action_button_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(action_matrix, action_button_cb, LV_EVENT_VALUE_CHANGED, nullptr);
 }
 
 void init_ui() {

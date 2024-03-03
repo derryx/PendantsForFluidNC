@@ -8,7 +8,7 @@ typedef struct {
     TFT_eSPI *tft;
 } lv_tft_espi_t;
 
-#define SCREEN_ROTATION 7
+#define SCREEN_ROTATION 1
 #define DRAW_BUF_SIZE (TFT_HEIGHT * TFT_WIDTH / 10 * (LV_COLOR_DEPTH / 8))
 
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
@@ -43,31 +43,6 @@ void beep() {
     digitalWrite(PIN_BEEPER, LOW);
 }
 
-void lv_example_button_1(void) {
-    lv_obj_t *label;
-
-    lv_obj_t *btn1 = lv_button_create(lv_screen_active());
-    lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, nullptr);
-    lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
-    lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
-
-    label = lv_label_create(btn1);
-    lv_label_set_text(label, "Button");
-    lv_obj_center(label);
-
-    lv_obj_t *btn2 = lv_button_create(lv_screen_active());
-    lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, nullptr);
-    lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
-    lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
-    lv_obj_set_height(btn2, LV_SIZE_CONTENT);
-
-    label = lv_label_create(btn2);
-    lv_label_set_text(label, "Toggle");
-    lv_obj_center(label);
-
-}
-
-
 void blinkLED(bool fast = false) {
     digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(fast ? 50 : 1000);                       // wait for a second
@@ -83,7 +58,7 @@ void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
     if (!touched) {
         data->state = LV_INDEV_STATE_RELEASED;
     } else {
-        beep();
+        // beep();
         data->state = LV_INDEV_STATE_PRESSED;
 #if (SCREEN_ROTATION == 1) || (SCREEN_ROTATION == 3) || (SCREEN_ROTATION == 5) || (SCREEN_ROTATION == 7)
         data->point.x = y;
@@ -176,8 +151,8 @@ void setup(void) {
     const auto driver_data = (lv_tft_espi_t *) lv_display_get_driver_data(disp);
     tft = driver_data->tft;
     tft->setRotation(SCREEN_ROTATION);
-    //touch_calibrate();
-    uint16_t calData[5] = {590, 3253, 620, 2938, 6};
+    // touch_calibrate();
+    uint16_t calData[5] = {365, 3262, 443, 2633, 3};
     tft->setTouch(calData);
 
     /*Initialize the (dummy) input device driver*/
