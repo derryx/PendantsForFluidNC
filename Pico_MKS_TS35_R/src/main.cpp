@@ -8,12 +8,19 @@ typedef struct {
     TFT_eSPI *tft;
 } lv_tft_espi_t;
 
+
+#define PIN_BEEPER 18
+#define FLUIDNC_TX_PIN 4
+#define FLUIDNC_RX_PIN 5
+
 #define SCREEN_ROTATION 1
 #define DRAW_BUF_SIZE (TFT_HEIGHT * TFT_WIDTH / 10 * (LV_COLOR_DEPTH / 8))
 
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
 TFT_eSPI *tft;  // Invoke custom library
+
+UART SerialFluidNC(FLUIDNC_TX_PIN, FLUIDNC_RX_PIN);
 
 #if LV_USE_LOG != 0
 
@@ -24,16 +31,6 @@ void my_print(lv_log_level_t level, const char *buf) {
 }
 
 #endif
-
-static void event_handler(lv_event_t *e) {
-    lv_event_code_t code = lv_event_get_code(e);
-
-    if (code == LV_EVENT_CLICKED) {
-        LV_LOG_USER("Clicked");
-    } else if (code == LV_EVENT_VALUE_CHANGED) {
-        LV_LOG_USER("Toggled");
-    }
-}
 
 void initBeep();
 
@@ -48,7 +45,6 @@ void blinkLED(bool fast = false) {
     delay(fast ? 50 : 1000);                       // wait for a second
     digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
     delay(fast ? 50 : 1000);
-    Serial.println("Blinky");
 }
 
 void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
@@ -58,7 +54,7 @@ void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
     if (!touched) {
         data->state = LV_INDEV_STATE_RELEASED;
     } else {
-        // beep();
+        beep();
         data->state = LV_INDEV_STATE_PRESSED;
 #if (SCREEN_ROTATION == 1) || (SCREEN_ROTATION == 3) || (SCREEN_ROTATION == 5) || (SCREEN_ROTATION == 7)
         data->point.x = y;
@@ -113,8 +109,6 @@ void touch_calibrate() {
     delay(4000);
 }
 
-UART SerialFluidNC(FLUIDNC_TX_PIN, FLUIDNC_RX_PIN);
-
 void fnc_putchar(uint8_t c) {
     SerialFluidNC.write(c);
 }
@@ -131,15 +125,7 @@ int milliseconds() {
     return millis();
 }
 
-void setup(void) {
-    Serial.begin(9600);
-    SerialFluidNC.begin(115200, SERIAL_8N1);
-    fnc_wait_ready();
-    fnc_send_line("$G", 1000);  // Initial modes report
-    fnc_send_line("$I", 1000);
-
-    initBeep();
-
+void init_lvgl() {
     lv_init();
 
 #if LV_USE_LOG != 0
@@ -159,31 +145,21 @@ void setup(void) {
     lv_indev_t *indev = lv_indev_create();
     lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER); /*Touchpad should have POINTER type*/
     lv_indev_set_read_cb(indev, my_touchpad_read);
+}
 
-    /* Create a simple label
-     * ---------------------
-     lv_obj_t *label = lv_label_create( lv_scr_act() );
-     lv_label_set_text( label, "Hello Arduino, I'm LVGL!" );
-     lv_obj_align( label, LV_ALIGN_CENTER, 0, 0 );
+void setup(void) {
+    Serial.begin(9600);
+    SerialFluidNC.begin(115200, SERIAL_8N1);
 
-     * Try an example. See all the examples
-     *  - Online: https://docs.lvgl.io/master/examples.html
-     *  - Source codes: https://github.com/lvgl/lvgl/tree/master/examples
-     * ----------------------------------------------------------------
+    fnc_wait_ready();
+    fnc_send_line("$G", 1000);  // Initial modes report
+    fnc_send_line("$I", 1000);
 
-     lv_example_btn_1();
+    initBeep();
 
-     * Or try out a demo. Don't forget to enable the demos in lv_conf.h. E.g. LV_USE_DEMOS_WIDGETS
-     * -------------------------------------------------------------------------------------------
-
-     lv_demo_widgets();
-     */
-
-    //lv_example_button_1();
+    init_lvgl();
 
     init_ui();
-
-    Serial.println("Setup done");
 }
 
 void initBeep() {
@@ -213,30 +189,4 @@ void loop() {
             redraw();
         }
     }
-
-    // Serial.println("loop");
-//    // Binary inversion of colours
-    //tft->invertDisplay( true ); // Where i is true or false
-//
-//    tft.fillScreen(TFT_BLACK);
-//    tft.drawRect(0, 0, tft.width(), tft.height(), TFT_GREEN);
-//
-//    tft.setCursor(0, 4, 4);
-//
-//    tft.setTextColor(TFT_WHITE);
-//    tft.println(" Invert ON\n");
-//
-//    tft.println(" White text");
-//
-//    tft.setTextColor(TFT_RED);
-//    tft.println(" Red text");
-//
-//    tft.setTextColor(TFT_GREEN);
-//    tft.println(" Green text");
-//
-//    tft.setTextColor(TFT_BLUE);
-//    tft.println(" Blue text");
-
-    //  blinkLED();
-
 }
