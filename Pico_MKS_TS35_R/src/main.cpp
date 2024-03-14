@@ -47,22 +47,26 @@ void blinkLED(bool fast = false) {
     delay(fast ? 50 : 1000);
 }
 
+// #define ROTATE 180
+
 void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
     uint16_t x, y;
     bool touched = tft->getTouch(&x, &y, 600);
 
-    if (!touched) {
-        data->state = LV_INDEV_STATE_RELEASED;
-    } else {
-        beep();
+    // Full screen: x1=0,y1=0 x2=479,y2=319
+    // coordinates of buttons: x1=240,y1=95 x2=479,y2=224
+
+    if (touched) {
+        data->point.x = y;                          //
+        data->point.y = TFT_HEIGHT - x;                          //
         data->state = LV_INDEV_STATE_PRESSED;
-#if (SCREEN_ROTATION == 1) || (SCREEN_ROTATION == 3) || (SCREEN_ROTATION == 5) || (SCREEN_ROTATION == 7)
-        data->point.x = y;
-        data->point.y = x;
-#else
-        data->point.x = x;
-        data->point.y = y;
-#endif
+        Serial.print(data->point.x);
+        Serial.print(",");
+        Serial.println(data->point.y);
+    } else {
+//            data->point.x = x;                          //
+//            data->point.y = y;                          //
+        data->state = LV_INDEV_STATE_RELEASED;
     }
 }
 
@@ -137,8 +141,8 @@ void init_lvgl() {
     const auto driver_data = (lv_tft_espi_t *) lv_display_get_driver_data(disp);
     tft = driver_data->tft;
     tft->setRotation(SCREEN_ROTATION);
-    // touch_calibrate();
-    uint16_t calData[5] = {365, 3262, 443, 2633, 3};
+    //touch_calibrate();
+    uint16_t calData[5] = {401, 3194, 512, 3064, 6};
     tft->setTouch(calData);
 
     /*Initialize the (dummy) input device driver*/
