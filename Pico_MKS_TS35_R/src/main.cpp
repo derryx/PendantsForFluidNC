@@ -60,9 +60,9 @@ void my_touchpad_read(lv_indev_t *indev, lv_indev_data_t *data) {
         data->point.x = y;                          //
         data->point.y = TFT_HEIGHT - x;                          //
         data->state = LV_INDEV_STATE_PRESSED;
-        Serial.print(data->point.x);
-        Serial.print(",");
-        Serial.println(data->point.y);
+        //      Serial.print(data->point.x);
+        //      Serial.print(",");
+        //      Serial.println(data->point.y);
     } else {
 //            data->point.x = x;                          //
 //            data->point.y = y;                          //

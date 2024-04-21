@@ -9,17 +9,17 @@
 
 std::map<state_t, lv_color_t> stateColors = {
         {Idle,         lv_color_white()},
-        {Alarm,        lv_palette_lighten(LV_PALETTE_RED, 2)},
+        {Alarm,        lv_palette_darken(LV_PALETTE_RED, 2)},
         {CheckMode,    lv_color_white()},
-        {Homing,       lv_palette_lighten(LV_PALETTE_CYAN, 2)},
-        {Cycle,        lv_palette_lighten(LV_PALETTE_GREEN, 2)},
-        {Hold,         lv_palette_lighten(LV_PALETTE_YELLOW, 2)},
-        {Jog,          lv_palette_lighten(LV_PALETTE_CYAN, 2)},
+        {Homing,       lv_palette_darken(LV_PALETTE_CYAN, 2)},
+        {Cycle,        lv_palette_darken(LV_PALETTE_GREEN, 2)},
+        {Hold,         lv_palette_darken(LV_PALETTE_YELLOW, 2)},
+        {Jog,          lv_palette_darken(LV_PALETTE_CYAN, 2)},
         {SafetyDoor,   lv_color_white()},
         {Sleep,        lv_color_white()},
         {ConfigAlarm,  lv_color_white()},
         {Critical,     lv_color_white()},
-        {Disconnected, lv_palette_lighten(LV_PALETTE_RED, 2)},
+        {Disconnected, lv_palette_darken(LV_PALETTE_RED, 2)},
 };
 
 lv_obj_t *base_obj;
@@ -46,53 +46,63 @@ void init_state_ui() {
     lv_label_set_text(status_label, stateString.c_str());
 }
 
-lv_span_t *axis_value_span[3];
 lv_obj_t *file_progress;
-lv_style_t axis_style;
-lv_style_t axis_group_style;
+lv_obj_t *axis_table;
 
-void init_axis_ui() {
-    lv_style_init(&axis_style);
-    lv_style_set_radius(&axis_style, 5);
-    lv_style_set_border_width(&axis_style, 2);
-    lv_style_set_border_color(&axis_style, lv_color_white());
-    lv_style_set_pad_hor(&axis_style, 3);
-    lv_style_set_text_font(&axis_style, &lv_font_montserrat_24);
-    lv_style_set_text_color(&axis_style, lv_color_white());
-    lv_style_set_text_align(&axis_style, LV_TEXT_ALIGN_RIGHT);
-    lv_style_set_bg_opa(&axis_style, LV_OPA_50);
-    lv_style_set_bg_color(&axis_style, lv_palette_main(LV_PALETTE_BLUE));
-    lv_style_set_width(&axis_style, LV_PCT(100));
+static void draw_table_event_cb(lv_event_t *e) {
+    lv_draw_task_t *draw_task = lv_event_get_draw_task(e);
+    auto *base_dsc = static_cast<lv_draw_dsc_base_t *>(draw_task->draw_dsc);
+    /*If the cells are drawn...*/
+    if (base_dsc->part == LV_PART_ITEMS) {
+        uint32_t row = base_dsc->id1;
+        uint32_t col = base_dsc->id2;
+        if (draw_task->type == LV_DRAW_TASK_TYPE_LABEL) {
+            auto *label_draw_dsc = static_cast<lv_draw_label_dsc_t *>(draw_task->draw_dsc);
+            label_draw_dsc->color = lv_color_white();
+            label_draw_dsc->font = &lv_font_montserrat_24;
+            label_draw_dsc->align = col == 0 ? LV_TEXT_ALIGN_LEFT : LV_TEXT_ALIGN_RIGHT;
+        }
+        if (draw_task->type == LV_DRAW_TASK_TYPE_FILL) {
+            auto *rect_draw_dsc = static_cast<lv_draw_rect_dsc_t *>(draw_task->draw_dsc);
+            rect_draw_dsc->bg_color = lv_palette_darken(LV_PALETTE_BLUE, 2);
+            rect_draw_dsc->bg_opa = LV_OPA_COVER;
+        }
+    }
+}
 
-    lv_style_init(&axis_group_style);
-    lv_style_set_pad_row(&axis_group_style, 0);
-    lv_style_set_pad_column(&axis_group_style, 0);
-    lv_style_set_pad_all(&axis_group_style, 0);
-
+void init_axis_ui_table() {
     auto axis_group = lv_obj_create(base_obj);
     lv_obj_add_flag(axis_group, LV_OBJ_FLAG_FLEX_IN_NEW_TRACK);
-    lv_obj_set_width(axis_group, LV_PCT(50));
+
     lv_obj_set_align(axis_group, LV_ALIGN_LEFT_MID);
+    lv_obj_set_style_pad_all(axis_group, 0, LV_PART_MAIN);
+    lv_obj_set_width(axis_group, LV_PCT(50));
+    lv_obj_set_height(axis_group, LV_PCT(50));
     lv_obj_set_flex_flow(axis_group, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(axis_group, LV_FLEX_ALIGN_SPACE_EVENLY, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
-    lv_obj_add_style(axis_group, &axis_group_style, LV_PART_MAIN);
+    axis_table = lv_table_create(axis_group);
+    lv_obj_set_size(axis_table, LV_PCT(100), LV_PCT(90));
+    lv_obj_set_style_pad_all(axis_table, 0, LV_PART_MAIN);
+    lv_table_set_column_count(axis_table, 2);
+    lv_table_set_row_count(axis_table, 2);
+    lv_table_set_column_width(axis_table, 0, 60);
+    lv_table_set_column_width(axis_table, 1, 180);
 
-    for (int i = 0; i < 3; ++i) {
-        auto span_grp = lv_spangroup_create(axis_group);
-
-        lv_obj_add_style(span_grp, &axis_style, LV_PART_MAIN);
-
-        auto axis_label_span = lv_spangroup_new_span(span_grp);
-        lv_span_set_text(axis_label_span, axisNumToString(i).c_str());
-        axis_value_span[i] = lv_spangroup_new_span(span_grp);
-        lv_span_set_text(axis_value_span[i], floatToString(myAxes[i], 2).c_str());
+    for (int row = 0; row < 2; row++) {
+        lv_table_set_cell_value(axis_table, row, 0, axisNumToString(row).c_str());
     }
+    for (int row = 0; row < 2; row++) {
+        lv_table_set_cell_value(axis_table, row, 1, floatToString(myAxes[row], 2).c_str());
+    }
+
+    lv_obj_add_event_cb(axis_table, draw_table_event_cb, LV_EVENT_DRAW_TASK_ADDED, NULL);
+    lv_obj_add_flag(axis_table, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS);
 
     file_progress = lv_bar_create(axis_group);
     lv_obj_set_width(file_progress, LV_PCT(100));
     lv_bar_set_value(file_progress, myPercent, LV_ANIM_OFF);
-}
+};
 
 lv_style_t base_style;
 
@@ -188,6 +198,7 @@ void init_jogging_ui() {
     lv_style_init(&jogging_style);
     lv_style_set_align(&jogging_style, LV_ALIGN_RIGHT_MID);
     lv_style_set_width(&jogging_style, LV_PCT(50));
+    lv_style_set_height(&jogging_style, LV_PCT(50));
     lv_style_set_pad_all(&jogging_style, 0);
 
     lv_style_init(&jogging_button_style);
@@ -221,10 +232,9 @@ enum action_button_id {
 void action_button_cb(lv_event_t *e) {
     auto *obj = static_cast<lv_obj_t *>(lv_event_get_target(e));
     auto id = lv_buttonmatrix_get_selected_button(obj);
-    // Serial.print("Action Button: ");
     switch (id) {
         case ACT_STOP:
-            // Serial.println("ACT_STOP");
+            Serial.println("ACT_STOP");
             if (state == Jog) {
                 fnc_realtime(JogCancel);
             } else {
@@ -232,19 +242,19 @@ void action_button_cb(lv_event_t *e) {
             }
             break;
         case ACT_PLAY:
-            // Serial.println("PLAY");
+            Serial.println("PLAY");
             if (state == Hold) {
                 fnc_realtime(CycleStart);
             }
             break;
         case ACT_PAUSE:
-            // Serial.println("PAUSE");
+            Serial.println("PAUSE");
             if (state == Cycle) {
                 fnc_realtime(FeedHold);
             }
             break;
         default:
-            // Serial.println("UNKOWN");
+            Serial.println("UNKOWN");
             break;
     }
 }
@@ -283,7 +293,7 @@ void init_action_buttons_ui() {
     lv_obj_set_height(action_matrix, LV_PCT(25));
     lv_obj_align(action_matrix, LV_ALIGN_BOTTOM_MID, 0, 0);
     lv_buttonmatrix_set_map(action_matrix, btnm_map);
-    lv_buttonmatrix_set_button_ctrl_all(action_matrix, LV_BUTTONMATRIX_CTRL_DISABLED | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
+    lv_buttonmatrix_set_button_ctrl_all(action_matrix, LV_BUTTONMATRIX_CTRL_HIDDEN | LV_BUTTONMATRIX_CTRL_NO_REPEAT);
     update_matrix_button_state();
     lv_obj_add_event_cb(action_matrix, action_button_cb, LV_EVENT_VALUE_CHANGED, nullptr);
 }
@@ -291,7 +301,7 @@ void init_action_buttons_ui() {
 void init_ui() {
     init_base();
     init_state_ui();
-    init_axis_ui();
+    init_axis_ui_table();
     init_jogging_ui();
     init_action_buttons_ui();
 }
@@ -306,8 +316,11 @@ void redraw_state() {
 }
 
 void redraw_axes() {
-    for (int i = 0; i < 3; ++i) {
-        lv_span_set_text(axis_value_span[i], floatToString(myAxes[i], 2).c_str());
+    /* for (int i = 0; i < 3; ++i) {
+         lv_span_set_text(axis_value_span[i], floatToString(myAxes[i], 2).c_str());
+     }*/
+    for (int row = 0; row < 2; row++) {
+        lv_table_set_cell_value(axis_table, row, 1, floatToString(myAxes[row], 2).c_str());
     }
     lv_bar_set_value(file_progress, myPercent, LV_ANIM_ON);
 }

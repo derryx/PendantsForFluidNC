@@ -4,6 +4,10 @@
 	(generator_version "8.0")
 	(uuid "417a56c7-cb0f-4f77-b37d-25d612b94997")
 	(paper "A4")
+	(title_block
+		(title "FluidNC to MKS DLC32 Bridge")
+		(rev "3")
+	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x03_Pin"
 			(pin_names
@@ -2429,10 +2433,6 @@
 		(uuid "099a3051-f45e-471e-a0a1-250f2e8c4fc6")
 	)
 	(no_connect
-		(at 144.78 161.29)
-		(uuid "0e34889e-8216-4cec-866f-ef1aa61e9c4e")
-	)
-	(no_connect
 		(at 104.14 133.35)
 		(uuid "1a526aa8-ca1a-4f86-8130-4630d986053b")
 	)
@@ -2598,9 +2598,9 @@
 		)
 		(uuid "ee46bcae-346a-4017-a4a6-272f390f5283")
 	)
-	(text "MKS DLC32 IO26"
+	(text "MKS DLC32 IO33"
 		(exclude_from_sim no)
-		(at 168.91 165.1 0)
+		(at 118.11 162.306 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2820,22 +2820,22 @@
 	)
 	(global_label "UART_TX"
 		(shape output)
-		(at 157.48 163.83 0)
+		(at 144.78 161.29 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "47106a87-caf7-4b3b-99d3-6ba31e14f038")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 168.2666 163.83 0)
+			(at 133.9934 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
