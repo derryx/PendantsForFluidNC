@@ -94,7 +94,7 @@ extern "C" void show_limits(bool probe, const bool *limits, size_t n_axis) {
     memcpy(myLimitSwitches, limits, n_axis * sizeof(*limits));
 }
 extern "C" void show_dro(const pos_t *axes, const pos_t *wco, bool isMpos, bool *limits, size_t n_axis) {
-    for (int axis = 0; axis < n_axis; axis++) {
+    for (size_t axis = 0; axis < n_axis; axis++) {
         myAxes[axis] = axes[axis];
         if (isMpos) {
             myAxes[axis] -= wco[axis];

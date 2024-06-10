@@ -182,7 +182,7 @@ void jogging_button_cb(lv_event_t *e) {
 void create_jogging_button(const char *symbol, u_int8_t row, u_int8_t col, enum_jogging_button_id id) {
     lv_obj_t *obj = lv_button_create(jogging_grid);
     lv_obj_add_style(obj, &jogging_button_style, LV_PART_MAIN);
-    static auto row_col_data = std::pair<u_int8_t, u_int8_t>(row, col);
+    //static auto row_col_data = std::pair<u_int8_t, u_int8_t>(row, col);
     lv_obj_add_event_cb(obj, &jogging_button_cb, LV_EVENT_CLICKED, &jogging_button_id[id]);
     /*Stretch the cell horizontally and vertically too
      *Set span to 1 to make the cell 1 column/row sized*/
