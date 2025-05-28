@@ -18,6 +18,14 @@ typedef uint32_t pin_mode_t;
 #define PIN_PULLDOWN (1 << 4)
 #define PIN_ACTIVELOW (1 << 5)
 
+#define IN PIN_INPUT
+#define OUT PIN_OUTPUT
+#define PWM PIN_PWM
+#define PU PIN_PULLUP
+#define PD PIN_PULLDOWN
+
+#define PIN_FREQ_SHIFT 8
+
 #ifdef __cplusplus
 }
 #endif
