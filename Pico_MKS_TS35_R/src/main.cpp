@@ -24,7 +24,7 @@ UART SerialFluidNC(FLUIDNC_TX_PIN, FLUIDNC_RX_PIN);
 
 #if LV_USE_LOG != 0
 
-void my_print(lv_log_level_t level, const char *buf) {
+void my_print(const lv_log_level_t level, const char *buf) {
     LV_UNUSED(level);
     Serial.println(buf);
     Serial.flush();
@@ -125,7 +125,7 @@ int fnc_getchar() {
     return -1;
 }
 
-int milliseconds() {
+unsigned long milliseconds() {
     return millis();
 }
 
@@ -135,10 +135,9 @@ void init_lvgl() {
 #if LV_USE_LOG != 0
     lv_log_register_print_cb(my_print);
 #endif
-    lv_display_t *disp;
     /*TFT_eSPI can be enabled lv_conf.h to initialize the display in a simple way*/
-    disp = lv_tft_espi_create(TFT_WIDTH, TFT_HEIGHT, draw_buf, sizeof(draw_buf));
-    const auto driver_data = (lv_tft_espi_t *) lv_display_get_driver_data(disp);
+    lv_display_t *disp = lv_tft_espi_create(TFT_WIDTH, TFT_HEIGHT, draw_buf, sizeof(draw_buf));
+    const auto driver_data = static_cast<lv_tft_espi_t *>(lv_display_get_driver_data(disp));
     tft = driver_data->tft;
     tft->setRotation(SCREEN_ROTATION);
     //touch_calibrate();

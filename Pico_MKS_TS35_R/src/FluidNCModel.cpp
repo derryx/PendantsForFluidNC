@@ -12,9 +12,9 @@ state_t state = Idle;
 pos_t myAxes[6] = {0};
 bool myLimitSwitches[6] = {false};
 bool myProbeSwitch = false;
-String myFile = "";   // running SD filename
-file_percent_t myPercent = 0.0;  // percent conplete of SD file
-override_percent_t myFro = 100;  // Feed rate override
+String myFile = ""; // running SD filename
+file_percent_t myPercent = 0.0; // percent conplete of SD file
+override_percent_t myFro = 100; // Feed rate override
 int lastAlarm = 0;
 int lastError = 0;
 uint32_t errorExpire;
@@ -39,7 +39,7 @@ std::map<String, state_t> state_map = {
 state_t decode_state_string(const char *state_string) {
     if (stateString != state_string) {
         stateString = state_string;
-        state_t new_state = state_map[stateString];
+        const state_t new_state = state_map[stateString];
         return new_state;
     }
     return state;
@@ -93,6 +93,7 @@ extern "C" void show_limits(bool probe, const bool *limits, size_t n_axis) {
     myProbeSwitch = probe;
     memcpy(myLimitSwitches, limits, n_axis * sizeof(*limits));
 }
+
 extern "C" void show_dro(const pos_t *axes, const pos_t *wco, bool isMpos, bool *limits, size_t n_axis) {
     for (size_t axis = 0; axis < n_axis; axis++) {
         myAxes[axis] = axes[axis];
@@ -146,7 +147,8 @@ extern "C" void show_error(int error) {
     redraw();
 }
 
-extern "C" void show_timeout() {}
+extern "C" void show_timeout() {
+}
 
 extern "C" void end_status_report() {
     // current_scene->onDROChange();
@@ -174,26 +176,26 @@ static int next_ping_ms = 0;
 
 // If we haven't heard from FluidNC in 4 seconds for some other reason,
 // send a status report request.
-const int ping_interval_ms = 4000;
+constexpr int ping_interval_ms = 4000;
 
 // If we haven't heard from FluidNC in 6 seconds for any reason, declare
 // FluidNC unresponsive.  After a ping, FluidNC has 2 seconds to respond.
-const int disconnect_interval_ms = 6000;
+constexpr int disconnect_interval_ms = 6000;
 
 static bool starting = true;
 
 void request_status_report() {
-    fnc_realtime(StatusReport);  // Request fresh status
+    fnc_realtime(StatusReport); // Request fresh status
     next_ping_ms = milliseconds() + ping_interval_ms;
 }
 
 bool fnc_is_connected() {
-    int now = milliseconds();
+    const int now = milliseconds();
     if (starting) {
         starting = false;
         disconnect_ms = now + (disconnect_interval_ms - ping_interval_ms);
-        request_status_report();  // sets next_ping_ms
-        return false;             // Do we need a value for "unknown"?
+        request_status_report(); // sets next_ping_ms
+        return false; // Do we need a value for "unknown"?
     }
     if ((now - disconnect_ms) >= 0) {
         next_ping_ms = now + ping_interval_ms;
@@ -207,7 +209,7 @@ bool fnc_is_connected() {
 }
 
 void update_rx_time() {
-    int now = milliseconds();
+    const int now = milliseconds();
     next_ping_ms = now + ping_interval_ms;
     disconnect_ms = now + disconnect_interval_ms;
 }

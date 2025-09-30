@@ -7,19 +7,19 @@
 #include <FluidNCModel.h>
 #include <map>
 
-std::map<state_t, lv_color_t> stateColors = {
-        {Idle,         lv_color_white()},
-        {Alarm,        lv_palette_darken(LV_PALETTE_RED, 2)},
-        {CheckMode,    lv_color_white()},
-        {Homing,       lv_palette_darken(LV_PALETTE_CYAN, 2)},
-        {Cycle,        lv_palette_darken(LV_PALETTE_GREEN, 2)},
-        {Hold,         lv_palette_darken(LV_PALETTE_YELLOW, 2)},
-        {Jog,          lv_palette_darken(LV_PALETTE_CYAN, 2)},
-        {SafetyDoor,   lv_color_white()},
-        {Sleep,        lv_color_white()},
-        {ConfigAlarm,  lv_color_white()},
-        {Critical,     lv_color_white()},
-        {Disconnected, lv_palette_darken(LV_PALETTE_RED, 2)},
+const std::map<state_t, lv_color_t> stateColors = {
+    {Idle, lv_color_white()},
+    {Alarm, lv_palette_darken(LV_PALETTE_RED, 2)},
+    {CheckMode, lv_color_white()},
+    {Homing, lv_palette_darken(LV_PALETTE_CYAN, 2)},
+    {Cycle, lv_palette_darken(LV_PALETTE_GREEN, 2)},
+    {Hold, lv_palette_darken(LV_PALETTE_YELLOW, 2)},
+    {Jog, lv_palette_darken(LV_PALETTE_CYAN, 2)},
+    {SafetyDoor, lv_color_white()},
+    {Sleep, lv_color_white()},
+    {ConfigAlarm, lv_color_white()},
+    {Critical, lv_color_white()},
+    {Disconnected, lv_palette_darken(LV_PALETTE_RED, 2)},
 };
 
 lv_obj_t *base_obj;
@@ -110,11 +110,11 @@ lv_style_t base_style;
 void init_base() {
     base_obj = lv_screen_active();
 
-//    lv_style_init(&base_style);
-//    lv_style_set_pad_row(&base_style, 0);
-//    lv_style_set_pad_column(&base_style, 0);
-//    lv_obj_set_flex_flow(base_obj, LV_FLEX_FLOW_ROW);
-//    lv_obj_add_style(base_obj, &base_style, LV_PART_MAIN);
+    //    lv_style_init(&base_style);
+    //    lv_style_set_pad_row(&base_style, 0);
+    //    lv_style_set_pad_column(&base_style, 0);
+    //    lv_obj_set_flex_flow(base_obj, LV_FLEX_FLOW_ROW);
+    //    lv_obj_add_style(base_obj, &base_style, LV_PART_MAIN);
 }
 
 lv_style_t jogging_style;
@@ -129,11 +129,13 @@ enum enum_jogging_button_id {
     JOG_DOWN
 };
 
-static enum_jogging_button_id jogging_button_id[] = {JOG_UP,
-                                                     JOG_LEFT,
-                                                     JOG_HOME,
-                                                     JOG_RIGHT,
-                                                     JOG_DOWN};
+static enum_jogging_button_id jogging_button_id[] = {
+    JOG_UP,
+    JOG_LEFT,
+    JOG_HOME,
+    JOG_RIGHT,
+    JOG_DOWN
+};
 
 static int32_t col_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
 static int32_t row_dsc[] = {LV_PCT(33), LV_PCT(33), LV_PCT(33), LV_GRID_TEMPLATE_LAST};
@@ -223,7 +225,8 @@ void init_jogging_ui() {
 }
 
 lv_obj_t *action_matrix;
-static const char *btnm_map[] = {LV_SYMBOL_STOP, LV_SYMBOL_PLAY, LV_SYMBOL_PAUSE, NULL
+static const char *btnm_map[] = {
+    LV_SYMBOL_STOP, LV_SYMBOL_PLAY, LV_SYMBOL_PAUSE, NULL
 };
 
 enum action_button_id : uint32_t {
@@ -231,8 +234,8 @@ enum action_button_id : uint32_t {
 };
 
 void action_button_cb(lv_event_t *e) {
-    auto *obj = static_cast<lv_obj_t *>(lv_event_get_target(e));
-    auto id = lv_buttonmatrix_get_selected_button(obj);
+    const auto *obj = static_cast<lv_obj_t *>(lv_event_get_target(e));
+    const auto id = lv_buttonmatrix_get_selected_button(obj);
     switch (id) {
         case ACT_STOP:
             Serial.println("ACT_STOP");
@@ -267,29 +270,29 @@ void update_matrix_button_state() {
             lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_PLAY, LV_BUTTONMATRIX_CTRL_HIDDEN);
             lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PAUSE,
                                             static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
             break;
         case Jog:
         case Homing:
             lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_STOP, LV_BUTTONMATRIX_CTRL_HIDDEN);
             lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PLAY,
                                             static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
             lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PAUSE,
                                             static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
             break;
         case Cycle:
             lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_STOP, LV_BUTTONMATRIX_CTRL_HIDDEN);
             lv_buttonmatrix_set_button_ctrl(action_matrix, ACT_PLAY,
                                             static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                                LV_BUTTONMATRIX_CTRL_NO_REPEAT));
             lv_buttonmatrix_clear_button_ctrl(action_matrix, ACT_PAUSE, LV_BUTTONMATRIX_CTRL_HIDDEN);
             break;
         default:
             lv_buttonmatrix_set_button_ctrl_all(action_matrix,
                                                 static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                    LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                                    LV_BUTTONMATRIX_CTRL_NO_REPEAT));
     }
 }
 
@@ -300,7 +303,7 @@ void init_action_buttons_ui() {
     lv_obj_align(action_matrix, LV_ALIGN_BOTTOM_MID, 0, 0);
     lv_buttonmatrix_set_map(action_matrix, btnm_map);
     lv_buttonmatrix_set_button_ctrl_all(action_matrix, static_cast<lv_buttonmatrix_ctrl_t>(LV_BUTTONMATRIX_CTRL_HIDDEN |
-                                                                                           LV_BUTTONMATRIX_CTRL_NO_REPEAT));
+                                            LV_BUTTONMATRIX_CTRL_NO_REPEAT));
     update_matrix_button_state();
     lv_obj_add_event_cb(action_matrix, action_button_cb, LV_EVENT_VALUE_CHANGED, nullptr);
 }
